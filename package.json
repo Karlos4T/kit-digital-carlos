@@ -53,7 +53,7 @@
     "sharp": "0.34.2",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
-    "@payloadcms/db-vercel-postgres": "3.70.0"
+    "@payloadcms/db-mongodb": "3.70.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
@@ -83,7 +83,13 @@
     "node": "^18.20.2 || >=20.9.0",
     "pnpm": "^9 || ^10"
   },
+  "resolutions": {
+    "undici": "6.19.8"
+  },
   "pnpm": {
+    "overrides": {
+      "undici": "6.19.8"
+    },
     "onlyBuiltDependencies": [
       "sharp",
       "esbuild",
