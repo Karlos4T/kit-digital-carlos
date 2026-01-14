@@ -10,6 +10,35 @@ export const Footer: GlobalConfig = {
   },
   fields: [
     {
+      name: 'contactHeading',
+      type: 'text',
+    },
+    {
+      name: 'contactEmail',
+      type: 'email',
+    },
+    {
+      name: 'location',
+      type: 'text',
+    },
+    {
+      name: 'phone',
+      type: 'text',
+    },
+    {
+      name: 'socialLinks',
+      type: 'array',
+      fields: [
+        link({
+          appearances: false,
+        }),
+      ],
+      maxRows: 4,
+      admin: {
+        initCollapsed: true,
+      },
+    },
+    {
       name: 'navItems',
       type: 'array',
       fields: [
@@ -24,6 +53,10 @@ export const Footer: GlobalConfig = {
           RowLabel: '@/Footer/RowLabel#RowLabel',
         },
       },
+    },
+    {
+      name: 'legalText',
+      type: 'text',
     },
   ],
   hooks: {

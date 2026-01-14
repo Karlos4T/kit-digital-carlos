@@ -9,6 +9,13 @@ export const Header: GlobalConfig = {
     read: () => true,
   },
   fields: [
+    link({
+      appearances: ['default', 'outline'],
+      overrides: {
+        label: 'CTA',
+        name: 'cta',
+      },
+    }),
     {
       name: 'navItems',
       type: 'array',

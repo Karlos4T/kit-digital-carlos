@@ -15,72 +15,72 @@
 
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 210 14% 12%;
 
-    --card: 240 5% 96%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 96%;
+    --card-foreground: 210 14% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 210 14% 12%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 145 46% 51%;
+    --primary-foreground: 210 16% 10%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 210 16% 90%;
+    --secondary-foreground: 210 14% 12%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 210 16% 92%;
+    --muted-foreground: 210 10% 42%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 145 46% 51%;
+    --accent-foreground: 210 16% 10%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 240 6% 80%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 210 10% 80% / 0.6;
+    --input: 210 16% 90%;
+    --ring: 145 46% 51%;
 
-    --radius: 0.2rem;
+    --radius: 0.5rem;
 
-    --success: 196 52% 74%;
-    --warning: 34 89% 85%;
-    --error: 10 100% 86%;
+    --success: 145 46% 51%;
+    --warning: 34 89% 50%;
+    --error: 10 80% 55%;
   }
 
   [data-theme='dark'] {
-    --background: 0 0% 0%;
-    --foreground: 210 40% 98%;
+    --background: 0 0% 8%;
+    --foreground: 0 0% 96%;
 
-    --card: 0 0% 4%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 11%;
+    --card-foreground: 0 0% 96%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 96%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 145 46% 51%;
+    --primary-foreground: 210 16% 10%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 210 6% 18%;
+    --secondary-foreground: 0 0% 96%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 210 6% 20%;
+    --muted-foreground: 0 0% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 145 46% 51%;
+    --accent-foreground: 210 16% 10%;
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 62% 36%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 0, 0%, 15%, 0.8;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 0 0% 20% / 0.7;
+    --input: 0 0% 20%;
+    --ring: 145 46% 51%;
 
-    --success: 196 100% 14%;
-    --warning: 34 51% 25%;
-    --error: 10 39% 43%;
+    --success: 145 46% 51%;
+    --warning: 34 89% 50%;
+    --error: 10 80% 55%;
   }
 }
 
@@ -89,7 +89,24 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+    @apply bg-background text-foreground min-h-[100vh] flex flex-col font-sans;
+    background-color: #101010;
+    background-image:
+      radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.22) 0 8px, transparent 100px),
+      radial-gradient(circle at 78% 12%, rgba(72, 187, 123, 0.28) 0 9px, transparent 100px),
+      radial-gradient(circle at 88% 45%, rgba(255, 255, 255, 0.16) 0 10px, transparent 100px),
+      radial-gradient(circle at 22% 72%, rgba(255, 255, 255, 0.18) 0 10px, transparent 100px),
+      radial-gradient(circle at 62% 82%, rgba(72, 187, 123, 0.22) 0 9px, transparent 100px);
+    background-repeat: no-repeat;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display;
   }
 }
 
@@ -100,4 +117,38 @@ html {
 html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
+}
+
+@layer components {
+  .home-hero {
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+  }
+  .fade-up {
+    animation: fade-up 0.6s ease-out both;
+  }
+
+  .fade-up--delay-1 {
+    animation-delay: 0.08s;
+  }
+
+  .fade-up--delay-2 {
+    animation-delay: 0.16s;
+  }
+
+  .fade-up--delay-3 {
+    animation-delay: 0.24s;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

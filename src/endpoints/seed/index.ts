@@ -6,9 +6,11 @@ import { home } from './home'
 import { image1 } from './image-1'
 import { image2 } from './image-2'
 import { imageHero1 } from './image-hero-1'
+import { myWorks } from './my-works'
 import { post1 } from './post-1'
 import { post2 } from './post-2'
 import { post3 } from './post-3'
+import { worksSeedData } from './works'
 
 const collections: CollectionSlug[] = [
   'categories',
@@ -192,6 +194,56 @@ export const seed = async ({
     },
   })
 
+  payload.logger.info(`— Seeding works...`)
+
+  const workHeroImages = [image1Doc, image2Doc, image3Doc, imageHomeDoc, imageHero1Doc]
+  const workStoryImages = [image1Doc, image2Doc, image3Doc, imageHomeDoc]
+
+  const worksDocs = await Promise.all(
+    worksSeedData.map((work, index) => {
+      const heroImage = workHeroImages[index % workHeroImages.length]
+      const storyImageA = workStoryImages[index % workStoryImages.length]
+      const storyImageB = workStoryImages[(index + 1) % workStoryImages.length]
+
+      return payload.create({
+        collection: 'works',
+        depth: 0,
+        context: {
+          disableRevalidate: true,
+        },
+        data: {
+          title: work.title,
+          label: work.label,
+          slug: work.slug,
+          subtitle: work.subtitle,
+          heroImage: heroImage.id,
+          storyTitle: work.storyTitle,
+          storyBody: work.storyBody,
+          storyImages: [{ image: storyImageA.id }, { image: storyImageB.id }],
+          descriptionTitle: work.descriptionTitle,
+          descriptionBody: work.descriptionBody,
+        },
+      })
+    }),
+  )
+
+  await Promise.all(
+    worksDocs.map((work, index) => {
+      const otherProjects = worksDocs
+        .filter((_, workIndex) => workIndex !== index)
+        .slice(0, 3)
+        .map((doc) => doc.id)
+
+      return payload.update({
+        id: work.id,
+        collection: 'works',
+        data: {
+          otherProjects,
+        },
+      })
+    }),
+  )
+
   payload.logger.info(`— Seeding contact form...`)
 
   const contactForm = await payload.create({
@@ -202,7 +254,7 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding pages...`)
 
-  const [_, contactPage] = await Promise.all([
+  const [_, contactPage, worksPage] = await Promise.all([
     payload.create({
       collection: 'pages',
       depth: 0,
@@ -213,6 +265,11 @@ export const seed = async ({
       depth: 0,
       data: contactPageData({ contactForm: contactForm }),
     }),
+    payload.create({
+      collection: 'pages',
+      depth: 0,
+      data: myWorks({ works: worksDocs.map((doc) => doc.id) }),
+    }),
   ])
 
   payload.logger.info(`— Seeding globals...`)
@@ -221,21 +278,37 @@ export const seed = async ({
     payload.updateGlobal({
       slug: 'header',
       data: {
+        cta: {
+          type: 'custom',
+          label: 'Contact',
+          url: '/contact',
+          appearance: 'outline',
+        },
         navItems: [
           {
             link: {
               type: 'custom',
-              label: 'Posts',
-              url: '/posts',
+              label: 'Home',
+              url: '/',
             },
           },
           {
             link: {
               type: 'reference',
-              label: 'Contact',
+              label: 'About',
               reference: {
                 relationTo: 'pages',
                 value: contactPage.id,
+              },
+            },
+          },
+          {
+            link: {
+              type: 'reference',
+              label: 'My Works',
+              reference: {
+                relationTo: 'pages',
+                value: worksPage.id,
               },
             },
           },
@@ -245,31 +318,70 @@ export const seed = async ({
     payload.updateGlobal({
       slug: 'footer',
       data: {
+        contactHeading: 'Get in touch with us',
+        contactEmail: 'info@aaronn.com',
+        location: 'Street Avenue 21, CA',
+        phone: '+9 0283353 000-00-888',
+        socialLinks: [
+          {
+            link: {
+              type: 'custom',
+              label: 'FB',
+              url: 'https://facebook.com',
+              newTab: true,
+            },
+          },
+          {
+            link: {
+              type: 'custom',
+              label: 'IG',
+              url: 'https://instagram.com',
+              newTab: true,
+            },
+          },
+          {
+            link: {
+              type: 'custom',
+              label: 'TW',
+              url: 'https://twitter.com',
+              newTab: true,
+            },
+          },
+        ],
         navItems: [
           {
             link: {
               type: 'custom',
-              label: 'Admin',
-              url: '/admin',
+              label: 'Home',
+              url: '/',
             },
           },
           {
             link: {
               type: 'custom',
-              label: 'Source Code',
-              newTab: true,
-              url: 'https://github.com/payloadcms/payload/tree/main/templates/website',
+              label: 'About',
+              url: '/about',
             },
           },
           {
             link: {
               type: 'custom',
-              label: 'Payload',
-              newTab: true,
-              url: 'https://payloadcms.com/',
+              label: 'Projects',
+              url: '/projects',
+            },
+          },
+          {
+            link: {
+              type: 'reference',
+              label: 'My Works',
+              reference: {
+                relationTo: 'pages',
+                value: worksPage.id,
+              },
             },
           },
         ],
+        legalText: '(c) 2024. All rights reserved.',
       },
     }),
   ])

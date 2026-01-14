@@ -4,7 +4,6 @@ import React from 'react'
 
 import type { Footer } from '@/payload-types'
 
-import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
 
@@ -12,22 +11,70 @@ export async function Footer() {
   const footerData: Footer = await getCachedGlobal('footer', 1)()
 
   const navItems = footerData?.navItems || []
+  const socialLinks = footerData?.socialLinks || []
 
   return (
-    <footer className="mt-auto border-t border-border bg-black dark:bg-card text-white">
-      <div className="container py-8 gap-8 flex flex-col md:flex-row md:justify-between">
-        <Link className="flex items-center" href="/">
-          <Logo />
-        </Link>
-
-        <div className="flex flex-col-reverse items-start md:flex-row gap-4 md:items-center">
-          <ThemeSelector />
-          <nav className="flex flex-col md:flex-row gap-4">
-            {navItems.map(({ link }, i) => {
-              return <CMSLink className="text-white" key={i} {...link} />
-            })}
-          </nav>
+    <footer className="mt-auto border-t border-white/5 bg-black text-white">
+      <div className="container py-16">
+        <div className="text-center">
+          {footerData?.contactHeading && (
+            <p className="text-xs uppercase tracking-[0.35em] text-primary">
+              {footerData.contactHeading}
+            </p>
+          )}
+          {footerData?.contactEmail && (
+            <a
+              className="mt-6 inline-flex text-2xl font-semibold text-white underline underline-offset-8 md:text-4xl"
+              href={`mailto:${footerData.contactEmail}`}
+            >
+              {footerData.contactEmail}
+            </a>
+          )}
         </div>
+
+        <div className="mt-12 grid gap-8 border-t border-white/10 pt-10 md:grid-cols-[1.2fr_1fr_1fr] md:items-start">
+          <Link className="flex items-center" href="/">
+            <Logo className="text-white" />
+          </Link>
+
+          <div className="space-y-2 text-sm text-white/60">
+            {footerData?.location && <p>{footerData.location}</p>}
+            {footerData?.phone && <p>{footerData.phone}</p>}
+          </div>
+
+          <div className="space-y-6">
+            <nav className="flex flex-wrap gap-4 text-xs uppercase tracking-[0.3em] text-white/60">
+              {navItems.map(({ link }, i) => {
+                return (
+                  <CMSLink
+                    className="transition-colors hover:text-white"
+                    key={i}
+                    {...link}
+                    appearance="inline"
+                  />
+                )
+              })}
+            </nav>
+            {socialLinks.length > 0 && (
+              <div className="flex gap-3 text-xs uppercase tracking-[0.3em] text-white/50">
+                {socialLinks.map(({ link }, i) => (
+                  <CMSLink
+                    className="transition-colors hover:text-white"
+                    key={i}
+                    {...link}
+                    appearance="inline"
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {footerData?.legalText && (
+          <div className="mt-12 border-t border-white/10 pt-6 text-center text-xs text-white/40">
+            {footerData.legalText}
+          </div>
+        )}
       </div>
     </footer>
   )

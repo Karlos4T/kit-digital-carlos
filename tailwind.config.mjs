@@ -30,12 +30,12 @@ const config = {
     container: {
       center: true,
       padding: {
-        '2xl': '2rem',
-        DEFAULT: '1rem',
-        lg: '2rem',
-        md: '2rem',
-        sm: '1rem',
-        xl: '2rem',
+        '2xl': '6rem',
+        DEFAULT: '0.75rem',
+        lg: '1.25rem',
+        md: '1.25rem',
+        sm: '0.75rem',
+        xl: '4rem',
       },
       screens: {
         '2xl': '86rem',
@@ -94,8 +94,9 @@ const config = {
         warning: 'hsl(var(--warning))',
       },
       fontFamily: {
+        display: ['var(--font-syne)'],
         mono: ['var(--font-geist-mono)'],
-        sans: ['var(--font-geist-sans)'],
+        sans: ['var(--font-rubik)'],
       },
       keyframes: {
         'accordion-down': {

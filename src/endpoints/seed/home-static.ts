@@ -5,84 +5,103 @@ export const homeStatic: RequiredDataFromCollectionSlug<'pages'> = {
   slug: 'home',
   _status: 'published',
   hero: {
-    type: 'lowImpact',
-    richText: {
-      root: {
-        type: 'root',
-        children: [
-          {
-            type: 'heading',
-            children: [
-              {
-                type: 'text',
-                detail: 0,
-                format: 0,
-                mode: 'normal',
-                style: '',
-                text: 'Payload Website Template',
-                version: 1,
-              },
-            ],
-            direction: 'ltr',
-            format: '',
-            indent: 0,
-            tag: 'h1',
-            version: 1,
-          },
-          {
-            type: 'paragraph',
-            children: [
-              {
-                type: 'link',
-                children: [
-                  {
-                    type: 'text',
-                    detail: 0,
-                    format: 0,
-                    mode: 'normal',
-                    style: '',
-                    text: 'Visit the admin dashboard',
-                    version: 1,
-                  },
-                ],
-                direction: 'ltr',
-                fields: {
-                  linkType: 'custom',
-                  newTab: false,
-                  url: '/admin',
-                },
-                format: '',
-                indent: 0,
-                version: 2,
-              },
-              {
-                type: 'text',
-                detail: 0,
-                format: 0,
-                mode: 'normal',
-                style: '',
-                text: ' to make your account and seed content for your website.',
-                version: 1,
-              },
-            ],
-            direction: 'ltr',
-            format: '',
-            indent: 0,
-            textFormat: 0,
-            version: 1,
-          },
-        ],
-        direction: 'ltr',
-        format: '',
-        indent: 0,
-        version: 1,
-      },
-    },
+    type: 'none',
   },
   meta: {
     description: 'An open-source website built with Payload and Next.js.',
     title: 'Payload Website Template',
   },
   title: 'Home',
-  layout: [],
+  layout: [
+    {
+      blockName: 'Landing Hero',
+      blockType: 'landingHero',
+      title: 'Convierte tu idea en realidad',
+      cta: {
+        type: 'custom',
+        newTab: false,
+        url: '/my-works',
+        label: 'Explore more',
+        appearance: 'default',
+      },
+    },
+    {
+      blockName: 'About Closer',
+      blockType: 'aboutCloser',
+      title: "Let's get to know about me closer",
+      body:
+        'Soy desarrollador y explorador constante de herramientas. Desde siempre he tenido la necesidad de convertir ideas en realidades.\n\nDesarrollo para dar forma a la imaginacion y transformarla en algo tangible.',
+      cta: {
+        type: 'custom',
+        newTab: false,
+        url: '/about',
+        label: 'Discover more about me',
+        appearance: 'outline',
+      },
+    },
+    {
+      blockName: 'Projects Highlight',
+      blockType: 'projectsHighlight',
+      title: 'My Projects Highlight',
+      cta: {
+        type: 'custom',
+        newTab: false,
+        url: '/projects',
+        label: 'Explore more',
+        appearance: 'outline',
+      },
+      projects: [
+        {
+          title: 'Solanialacto',
+          scope: 'Redes Sociales',
+          tags: [
+            {
+              tag: 'Branding',
+            },
+            {
+              tag: 'Logo design',
+            },
+          ],
+        },
+        {
+          title: 'NearU',
+          scope: 'Desarrollo',
+          tags: [
+            {
+              tag: 'Web',
+            },
+            {
+              tag: 'Flutter',
+            },
+          ],
+        },
+        {
+          title: 'NFT Glimps',
+          scope: 'Branding',
+          tags: [
+            {
+              tag: 'NFT Design',
+            },
+          ],
+        },
+        {
+          title: 'Brand Suggestions',
+          scope: 'Identidad',
+          tags: [
+            {
+              tag: 'NFT Logo',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      blockName: 'Work Philosophy',
+      blockType: 'workPhilosophy',
+      title: 'Work philosophy',
+      body:
+        'Mi forma de trabajar nace de la curiosidad y del impulso constante por crear. A lo largo del tiempo he explorado herramientas, aprendido ideas y afinado mi proceso, entendiendo que cada paso es parte del camino.\n\nDesarrollo con claridad, construyendo formas y detalles hasta que las ideas dejan de ser abstractas y se convierten en algo real, claro y tangible.',
+      author: 'Carlos Garcia',
+    },
+  ],
 }
