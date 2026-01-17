@@ -5,8 +5,6 @@ import configPromise from '@payload-config'
 import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import { draftMode } from 'next/headers'
 import React, { cache } from 'react'
-import { homeStatic } from '@/endpoints/seed/home-static'
-import { myWorks } from '@/endpoints/seed/my-works'
 
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
@@ -55,14 +53,6 @@ export default async function Page({ params: paramsPromise }: Args) {
   page = await queryPageBySlug({
     slug: decodedSlug,
   })
-
-  // Remove this code once your website is seeded
-  if (!page && slug === 'home') {
-    page = homeStatic
-  }
-  if (!page && slug === 'my-works') {
-    page = myWorks()
-  }
 
   if (!page) {
     return <PayloadRedirects url={url} />
@@ -113,5 +103,85 @@ const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
     },
   })
 
-  return result.docs?.[0] || null
+  const page = result.docs?.[0] || null
+
+  if (!page || !page.layout || page.layout.length === 0) {
+    return page
+  }
+
+  const worksGalleryBlock = page.layout.find(
+    (block) =>
+      block.blockType === 'worksGallery' &&
+      Array.isArray(block.works) &&
+      block.works.length > 0,
+  )
+
+  if (!worksGalleryBlock || !Array.isArray(worksGalleryBlock.works)) {
+    return page
+  }
+
+  const worksRefs = worksGalleryBlock.works
+  const workIDs = worksRefs
+    .map((work) => (typeof work === 'string' ? work : work?.id))
+    .filter((id): id is string => Boolean(id))
+
+  const worksResult = workIDs.length
+    ? await payload.find({
+        collection: 'works',
+        depth: 1,
+        limit: workIDs.length,
+        overrideAccess: draft ? true : false,
+        pagination: false,
+        where: {
+          id: {
+            in: workIDs,
+          },
+        },
+      })
+    : { docs: [] }
+
+  const worksByID = new Map(worksResult.docs.map((work) => [String(work.id), work]))
+  const resolvedWorks = worksRefs
+    .map((work) => {
+      if (!work) return null
+      if (typeof work === 'string') return worksByID.get(work) || null
+      return work
+    })
+    .filter((work): work is RequiredDataFromCollectionSlug<'works'> => Boolean(work))
+
+  if (resolvedWorks.length === 0) {
+    return page
+  }
+
+  const projectsFromWorks = resolvedWorks.map((work) => ({
+    title: work.title || 'Project',
+    scope: work.label,
+    tags: [],
+    image: work.heroImage,
+  }))
+
+  const nextLayout = page.layout.map((block) => {
+    if (block.blockType === 'projectsHighlight') {
+      if (!block.projects || block.projects.length === 0) {
+        return {
+          ...block,
+          projects: projectsFromWorks,
+        }
+      }
+    }
+
+    if (block.blockType === 'worksGallery') {
+      return {
+        ...block,
+        works: resolvedWorks,
+      }
+    }
+
+    return block
+  })
+
+  return {
+    ...page,
+    layout: nextLayout,
+  }
 })

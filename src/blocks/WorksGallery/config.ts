@@ -31,6 +31,7 @@ export const WorksGallery: Block = {
       overrides: {
         label: 'CTA',
         name: 'cta',
+        required: true,
       },
     }),
   ],

@@ -9,6 +9,11 @@ export const Header: GlobalConfig = {
     read: () => true,
   },
   fields: [
+    {
+      name: 'logo',
+      type: 'upload',
+      relationTo: 'media',
+    },
     link({
       appearances: ['default', 'outline'],
       overrides: {
@@ -20,6 +25,11 @@ export const Header: GlobalConfig = {
       name: 'navItems',
       type: 'array',
       fields: [
+    {
+      name: 'logo',
+      type: 'upload',
+      relationTo: 'media',
+    },
         link({
           appearances: false,
         }),

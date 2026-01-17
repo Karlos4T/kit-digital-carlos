@@ -18,6 +18,12 @@ export const WorksGalleryBlock: React.FC<WorksGalleryBlockProps> = ({
 }) => {
   const [isActive, setIsActive] = useState(false)
   const [searchValue, setSearchValue] = useState('')
+
+  const hasCTA = Boolean(
+    cta &&
+      ((cta.type === 'custom' && cta.url) ||
+        (cta.type === 'reference' && cta.reference?.value)),
+  )
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   useEffect(() => {
@@ -99,7 +105,7 @@ export const WorksGalleryBlock: React.FC<WorksGalleryBlockProps> = ({
           })}
         </div>
 
-        {cta && (
+        {hasCTA && (
           <div className="mt-12 flex justify-center">
             <CMSLink
               {...cta}

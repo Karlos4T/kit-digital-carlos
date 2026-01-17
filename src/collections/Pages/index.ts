@@ -12,11 +12,15 @@ import { AboutCloser } from '@/blocks/AboutCloser/config'
 import { ProjectsHighlight } from '@/blocks/ProjectsHighlight/config'
 import { WorkPhilosophy } from '@/blocks/WorkPhilosophy/config'
 import { WorksGallery } from '@/blocks/WorksGallery/config'
+import { ContactLayout } from '@/blocks/ContactLayout/config'
+import { LegalText } from '@/blocks/LegalText/config'
+import { AboutMe } from '@/blocks/AboutMe/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage'
+import { applyLayoutPreset } from './hooks/applyLayoutPreset'
 
 import {
   MetaDescriptionField,
@@ -66,6 +70,34 @@ export const Pages: CollectionConfig<'pages'> = {
       required: true,
     },
     {
+      name: 'layoutPreset',
+      type: 'select',
+      admin: {
+        description: 'Select a preset to auto-fill the layout on save.',
+        position: 'sidebar',
+      },
+      options: [
+        { label: 'Home', value: 'home' },
+        { label: 'Contact', value: 'contact' },
+        { label: 'My Works', value: 'my-works' },
+      ],
+    },
+    {
+      name: 'presetForm',
+      type: 'relationship',
+      admin: {
+        condition: (_, siblingData) => siblingData?.layoutPreset === 'contact',
+        position: 'sidebar',
+      },
+      relationTo: 'forms',
+      validate: (value, { data }) => {
+        if (data?.layoutPreset === 'contact' && !value) {
+          return 'Contact layout requires a form.'
+        }
+        return true
+      },
+    },
+    {
       type: 'tabs',
       tabs: [
         {
@@ -79,10 +111,13 @@ export const Pages: CollectionConfig<'pages'> = {
               type: 'blocks',
               blocks: [
                 LandingHero,
+                AboutMe,
                 AboutCloser,
                 ProjectsHighlight,
                 WorkPhilosophy,
                 WorksGallery,
+                ContactLayout,
+                LegalText,
                 CallToAction,
                 Content,
                 MediaBlock,
@@ -136,6 +171,7 @@ export const Pages: CollectionConfig<'pages'> = {
     slugField(),
   ],
   hooks: {
+    beforeValidate: [applyLayoutPreset],
     afterChange: [revalidatePage],
     beforeChange: [populatePublishedAt],
     afterDelete: [revalidateDelete],

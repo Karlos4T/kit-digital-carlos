@@ -6,6 +6,7 @@ import { Rubik, Syne } from 'next/font/google'
 import React from 'react'
 
 import { AdminBar } from '@/components/AdminBar'
+import { CookieBanner } from '@/components/CookieBanner'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
@@ -51,6 +52,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Header />
           {children}
           <Footer />
+          <CookieBanner />
         </Providers>
       </body>
     </html>

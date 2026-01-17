@@ -3,6 +3,7 @@ import type { CollectionSlug, GlobalSlug, Payload, PayloadRequest, File } from '
 import { contactForm as contactFormData } from './contact-form'
 import { contact as contactPageData } from './contact-page'
 import { home } from './home'
+import { about } from './about'
 import { image1 } from './image-1'
 import { image2 } from './image-2'
 import { imageHero1 } from './image-hero-1'
@@ -254,7 +255,7 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding pages...`)
 
-  const [_, contactPage, worksPage] = await Promise.all([
+  const [_, contactPage, worksPage, aboutPage] = await Promise.all([
     payload.create({
       collection: 'pages',
       depth: 0,
@@ -263,12 +264,17 @@ export const seed = async ({
     payload.create({
       collection: 'pages',
       depth: 0,
-      data: contactPageData({ contactForm: contactForm }),
+      data: contactPageData({ contactForm: contactForm, contactImage: imageHomeDoc }),
     }),
     payload.create({
       collection: 'pages',
       depth: 0,
       data: myWorks({ works: worksDocs.map((doc) => doc.id) }),
+    }),
+    payload.create({
+      collection: 'pages',
+      depth: 0,
+      data: about({ primaryImage: image1Doc, secondaryImage: image2Doc }),
     }),
   ])
 
@@ -298,7 +304,7 @@ export const seed = async ({
               label: 'About',
               reference: {
                 relationTo: 'pages',
-                value: contactPage.id,
+                value: aboutPage.id,
               },
             },
           },
@@ -309,6 +315,23 @@ export const seed = async ({
               reference: {
                 relationTo: 'pages',
                 value: worksPage.id,
+              },
+            },
+          },
+          {
+            link: {
+              type: 'custom',
+              label: 'Posts',
+              url: '/posts',
+            },
+          },
+          {
+            link: {
+              type: 'reference',
+              label: 'Contact',
+              reference: {
+                relationTo: 'pages',
+                value: contactPage.id,
               },
             },
           },
