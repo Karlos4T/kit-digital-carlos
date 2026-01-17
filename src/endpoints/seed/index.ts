@@ -101,7 +101,7 @@ export const seed = async ({
     ),
   ])
 
-  const [demoAuthor, image1Doc, image2Doc, image3Doc, imageHomeDoc] = await Promise.all([
+  const [demoAuthor, image1Doc, image2Doc, image3Doc, imageHero1Doc] = await Promise.all([
     payload.create({
       collection: 'users',
       data: {
@@ -197,8 +197,8 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding works...`)
 
-  const workHeroImages = [image1Doc, image2Doc, image3Doc, imageHomeDoc, imageHero1Doc]
-  const workStoryImages = [image1Doc, image2Doc, image3Doc, imageHomeDoc]
+  const workHeroImages = [image1Doc, image2Doc, image3Doc, imageHero1Doc, imageHero1Doc]
+  const workStoryImages = [image1Doc, image2Doc, image3Doc, imageHero1Doc]
 
   const worksDocs = await Promise.all(
     worksSeedData.map((work, index) => {
@@ -259,12 +259,12 @@ export const seed = async ({
     payload.create({
       collection: 'pages',
       depth: 0,
-      data: home({ heroImage: imageHomeDoc, metaImage: image2Doc }),
+      data: home({ heroImage: imageHero1Doc, metaImage: image2Doc }),
     }),
     payload.create({
       collection: 'pages',
       depth: 0,
-      data: contactPageData({ contactForm: contactForm, contactImage: imageHomeDoc }),
+      data: contactPageData({ contactForm: contactForm, contactImage: imageHero1Doc }),
     }),
     payload.create({
       collection: 'pages',

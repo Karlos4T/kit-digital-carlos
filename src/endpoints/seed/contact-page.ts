@@ -21,9 +21,7 @@ export const contact: (args: ContactArgs) => RequiredDataFromCollectionSlug<'pag
         blockType: 'contactLayout',
         heroHeading: 'Contact Me',
         heroSubheading: 'For Any Project Knock Us',
-        formHeading: 'Get in
-Touch With
-Us',
+        formHeading: 'Get in\nTouch With\nUs',
         form: contactForm,
         media: contactImage,
         infoItems: [
