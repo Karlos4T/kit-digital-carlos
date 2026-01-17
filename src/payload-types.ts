@@ -2204,6 +2204,7 @@ export interface Header {
  */
 export interface Footer {
   id: string;
+  logo?: (string | null) | Media;
   contactHeading?: string | null;
   contactEmail?: string | null;
   location?: string | null;
@@ -2292,6 +2293,7 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
+  logo?: T;
   contactHeading?: T;
   contactEmail?: T;
   location?: T;

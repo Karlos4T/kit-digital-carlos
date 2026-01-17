@@ -36,8 +36,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         <Link href="/">
           {data?.logo && typeof data.logo === 'object' ? (
             <Media
-              className="h-9 w-auto"
-              imgClassName="h-9 w-auto object-contain"
+              className="h-9 w-[300px]"
+              imgClassName="h-9 w-[300px] object-contain"
               resource={data.logo}
             />
           ) : (

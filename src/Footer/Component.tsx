@@ -5,6 +5,7 @@ import React from 'react'
 import type { Footer } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
 import { Logo } from '@/components/Logo/Logo'
 
 export async function Footer() {
@@ -34,7 +35,15 @@ export async function Footer() {
 
         <div className="mt-12 grid gap-8 border-t border-white/10 pt-10 md:grid-cols-[1.2fr_1fr_1fr] md:items-start">
           <Link className="flex items-center" href="/">
-            <Logo className="text-white" />
+            {footerData?.logo && typeof footerData.logo === 'object' ? (
+              <Media
+                className="h-9 w-[300px]"
+                imgClassName="h-9 w-[300px] object-contain"
+                resource={footerData.logo}
+              />
+            ) : (
+              <Logo className="text-white" />
+            )}
           </Link>
 
           <div className="space-y-2 text-sm text-white/60">

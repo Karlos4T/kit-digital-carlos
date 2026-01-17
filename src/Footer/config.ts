@@ -10,6 +10,11 @@ export const Footer: GlobalConfig = {
   },
   fields: [
     {
+      name: 'logo',
+      type: 'upload',
+      relationTo: 'media',
+    },
+    {
       name: 'contactHeading',
       type: 'text',
     },

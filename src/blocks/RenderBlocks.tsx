@@ -47,7 +47,7 @@ export const RenderBlocks: React.FC<{
     )?.works || []
 
   const projectsFromWorks = worksFromGallery
-    .map((work) => {
+    .map((work : any) => {
       if (!work || typeof work !== 'object') return null
       return {
         title: work.title || 'Project',
