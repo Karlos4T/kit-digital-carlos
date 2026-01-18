@@ -17,6 +17,7 @@ export const AboutCloserBlock: React.FC<AboutCloserBlockProps> = ({
   image,
   title,
 }) => {
+  const fallbackImage = '/media/Disen%CC%83o%20sin%20ti%CC%81tulo-3.jpg'
   const paragraphs = splitParagraphs(body)
 
   return (
@@ -32,7 +33,7 @@ export const AboutCloserBlock: React.FC<AboutCloserBlockProps> = ({
               <img
                 alt="Portrait"
                 className="h-full w-full object-cover"
-                src="https://images.unsplash.com/photo-1512361436605-a484bdb34b5f?q=80&w=1200&auto=format&fit=crop"
+                src={fallbackImage}
               />
             )}
           </div>

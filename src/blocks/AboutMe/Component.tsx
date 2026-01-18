@@ -21,6 +21,8 @@ export const AboutMeBlock: React.FC<AboutMeBlockProps> = ({
   socialHeading,
   socialLinks,
 }) => {
+  const fallbackPrimary = '/media/Disen%CC%83o%20sin%20ti%CC%81tulo-3.jpg'
+  const fallbackSecondary = '/media/IMG_9056-1.jpg'
   const paragraphs = splitParagraphs(missionBody)
 
   return (
@@ -57,7 +59,7 @@ export const AboutMeBlock: React.FC<AboutMeBlockProps> = ({
                 <img
                   alt="Primary portrait"
                   className="h-full w-full object-cover"
-                  src="https://images.unsplash.com/photo-1512361436605-a484bdb34b5f?q=80&w=1200&auto=format&fit=crop"
+                  src={fallbackPrimary}
                 />
               )}
             </div>
@@ -75,7 +77,7 @@ export const AboutMeBlock: React.FC<AboutMeBlockProps> = ({
                 <img
                   alt="Secondary portrait"
                   className="h-full w-full object-cover"
-                  src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop"
+                  src={fallbackSecondary}
                 />
               )}
             </div>
