@@ -6,7 +6,6 @@
   "type": "module",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
-    "prebuild": "node ./node_modules/.bin/tsx scripts/sync-works.ts",
     "postbuild": "test -f .next/routes-manifest.json && next-sitemap --config next-sitemap.config.cjs || echo \"Skipping next-sitemap (no .next build output).\"",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
     "dev:prod": "cross-env NODE_OPTIONS=--no-deprecation rm -rf .next && pnpm build && pnpm start",
@@ -18,8 +17,6 @@
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
     "reinstall": "cross-env NODE_OPTIONS=--no-deprecation rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
-    "sync:media": "node ./node_modules/.bin/tsx scripts/sync-media.ts",
-    "sync:works": "node ./node_modules/.bin/tsx scripts/sync-works.ts",
     "test": "pnpm run test:int && pnpm run test:e2e",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --no-experimental-strip-types\" pnpm exec playwright test --config=playwright.config.ts",
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
@@ -35,6 +32,7 @@
     "@payloadcms/plugin-search": "3.70.0",
     "@payloadcms/plugin-seo": "3.70.0",
     "@payloadcms/richtext-lexical": "3.70.0",
+    "@payloadcms/storage-vercel-blob": "3.70.0",
     "@payloadcms/ui": "3.70.0",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-label": "^2.0.2",
@@ -81,7 +79,6 @@
     "tailwindcss": "^3.4.3",
     "typescript": "5.7.3",
     "vite-tsconfig-paths": "5.1.4",
-    "tsx": "^4.20.6",
     "vitest": "3.2.3"
   },
   "engines": {
