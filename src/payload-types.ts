@@ -2250,6 +2250,8 @@ export interface Footer {
       }[]
     | null;
   legalText?: string | null;
+  bottomText?: string | null;
+  bottomImage?: (string | null) | Media;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2327,6 +2329,8 @@ export interface FooterSelect<T extends boolean = true> {
         id?: T;
       };
   legalText?: T;
+  bottomText?: T;
+  bottomImage?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

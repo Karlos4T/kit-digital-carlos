@@ -84,6 +84,23 @@ export async function Footer() {
             {footerData.legalText}
           </div>
         )}
+
+        {(footerData?.bottomText || footerData?.bottomImage) && (
+          <div className="mt-8 flex flex-col items-center gap-4 border-t border-white/10 pt-6 text-center">
+            {footerData?.bottomText && (
+              <p className="text-xs uppercase tracking-[0.3em] text-white/60">
+                {footerData.bottomText}
+              </p>
+            )}
+            {footerData?.bottomImage && typeof footerData.bottomImage === 'object' && (
+              <Media
+                className="h-16 w-auto"
+                imgClassName="h-16 w-auto object-contain"
+                resource={footerData.bottomImage}
+              />
+            )}
+          </div>
+        )}
       </div>
     </footer>
   )

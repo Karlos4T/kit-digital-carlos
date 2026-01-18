@@ -63,6 +63,15 @@ export const Footer: GlobalConfig = {
       name: 'legalText',
       type: 'text',
     },
+    {
+      name: 'bottomText',
+      type: 'text',
+    },
+    {
+      name: 'bottomImage',
+      type: 'upload',
+      relationTo: 'media',
+    },
   ],
   hooks: {
     afterChange: [revalidateFooter],

@@ -405,6 +405,7 @@ export const seed = async ({
           },
         ],
         legalText: '(c) 2024. All rights reserved.',
+        bottomText: 'Thanks for visiting',
       },
     }),
   ])
