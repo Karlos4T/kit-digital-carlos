@@ -55,6 +55,16 @@ export const plugins: Plugin[] = [
     generateURL,
   }),
   formBuilderPlugin({
+    beforeEmail: (emails) => {
+      const to = process.env.CONTACT_FORM_TO
+      if (!to) return emails
+
+      return emails.map((email) => ({
+        ...email,
+        to,
+      }))
+    },
+    defaultToEmail: process.env.CONTACT_FORM_TO,
     fields: {
       payment: false,
     },

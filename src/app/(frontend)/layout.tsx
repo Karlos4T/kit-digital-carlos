@@ -12,7 +12,7 @@ import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import { draftMode } from 'next/headers'
+import { cookies, draftMode } from 'next/headers'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -29,11 +29,12 @@ const syne = Syne({
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { isEnabled } = await draftMode()
+  const lang = cookies().get('lang')?.value || 'es'
 
   return (
     <html
       className={cn(rubik.variable, syne.variable, GeistMono.variable)}
-      lang="en"
+      lang={lang}
       suppressHydrationWarning
     >
       <head>

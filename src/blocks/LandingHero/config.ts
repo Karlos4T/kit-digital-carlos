@@ -9,11 +9,13 @@ export const LandingHero: Block = {
     {
       name: 'title',
       type: 'text',
+      localized: true,
       required: true,
     },
     {
       name: 'subtitle',
       type: 'textarea',
+      localized: true,
     },
     link({
       appearances: ['default', 'outline'],

@@ -9,15 +9,18 @@ export const AboutCloser: Block = {
     {
       name: 'eyebrow',
       type: 'text',
+      localized: true,
     },
     {
       name: 'title',
       type: 'text',
+      localized: true,
       required: true,
     },
     {
       name: 'body',
       type: 'textarea',
+      localized: true,
     },
     link({
       appearances: ['default', 'outline'],

@@ -9,15 +9,18 @@ export const WorksGallery: Block = {
     {
       name: 'title',
       type: 'text',
+      localized: true,
       required: true,
     },
     {
       name: 'subtitle',
       type: 'text',
+      localized: true,
     },
     {
       name: 'searchLabel',
       type: 'text',
+      localized: true,
       defaultValue: 'Search',
     },
     {

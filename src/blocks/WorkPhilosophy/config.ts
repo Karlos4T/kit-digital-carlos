@@ -7,15 +7,18 @@ export const WorkPhilosophy: Block = {
     {
       name: 'title',
       type: 'text',
+      localized: true,
       required: true,
     },
     {
       name: 'body',
       type: 'textarea',
+      localized: true,
     },
     {
       name: 'author',
       type: 'text',
+      localized: true,
     },
   ],
   labels: {

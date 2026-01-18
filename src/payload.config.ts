@@ -3,6 +3,7 @@ import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
+import { createRequire } from 'module'
 
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
@@ -19,6 +20,31 @@ import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+const require = createRequire(import.meta.url)
+
+const emailConfig = process.env.SMTP_HOST
+  ? (() => {
+      // Lazy-load nodemailer so local builds without SMTP config don't require the package.
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const nodemailer = require('nodemailer') as typeof import('nodemailer')
+      return {
+        fromName: process.env.SMTP_FROM_NAME || 'Website',
+        fromAddress: process.env.SMTP_FROM || process.env.CONTACT_FORM_TO || 'no-reply@example.com',
+        transport: nodemailer.createTransport({
+          host: process.env.SMTP_HOST,
+          port: Number(process.env.SMTP_PORT || 587),
+          secure: process.env.SMTP_SECURE === 'true',
+          auth: process.env.SMTP_USER
+            ? {
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PASS,
+              }
+            : undefined,
+        }),
+      }
+    })()
+  : undefined
 
 export default buildConfig({
   admin: {
@@ -64,6 +90,17 @@ export default buildConfig({
         },
       ],
     },
+  },
+  ...(emailConfig ? { email: emailConfig } : {}),
+  i18n: {
+    locales: ['en', 'es'],
+    defaultLocale: 'es',
+    fallback: true,
+  },
+  localization: {
+    locales: ['en', 'es'],
+    defaultLocale: 'es',
+    fallback: true,
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,

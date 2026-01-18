@@ -9,6 +9,7 @@ export const ProjectsHighlight: Block = {
     {
       name: 'title',
       type: 'text',
+      localized: true,
       required: true,
     },
     link({
@@ -25,11 +26,13 @@ export const ProjectsHighlight: Block = {
         {
           name: 'title',
           type: 'text',
+          localized: true,
           required: true,
         },
         {
           name: 'scope',
           type: 'text',
+          localized: true,
         },
         {
           name: 'tags',
@@ -38,6 +41,7 @@ export const ProjectsHighlight: Block = {
             {
               name: 'tag',
               type: 'text',
+              localized: true,
               required: true,
             },
           ],

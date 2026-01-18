@@ -67,7 +67,18 @@ export const Pages: CollectionConfig<'pages'> = {
     {
       name: 'title',
       type: 'text',
+      localized: true,
       required: true,
+    },
+    {
+      name: 'localeSwitcher',
+      type: 'ui',
+      admin: {
+        position: 'sidebar',
+        components: {
+          Field: '@/components/LocaleSwitcher',
+        },
+      },
     },
     {
       name: 'layoutPreset',

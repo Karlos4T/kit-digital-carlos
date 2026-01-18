@@ -9,11 +9,13 @@ export const AboutMe: Block = {
     {
       name: 'heroTitle',
       type: 'text',
+      localized: true,
       required: true,
     },
     {
       name: 'heroSubtitle',
       type: 'text',
+      localized: true,
     },
     {
       name: 'showDivider',
@@ -23,11 +25,13 @@ export const AboutMe: Block = {
     {
       name: 'missionTitle',
       type: 'text',
+      localized: true,
       required: true,
     },
     {
       name: 'missionBody',
       type: 'textarea',
+      localized: true,
     },
     {
       name: 'images',
@@ -48,6 +52,7 @@ export const AboutMe: Block = {
     {
       name: 'socialHeading',
       type: 'text',
+      localized: true,
     },
     {
       name: 'socialLinks',

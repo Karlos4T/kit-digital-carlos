@@ -49,6 +49,7 @@
     "lucide-react": "^0.378.0",
     "next": "15.4.10",
     "next-sitemap": "^4.2.3",
+    "nodemailer": "^6.9.14",
     "payload": "3.70.0",
     "prism-react-renderer": "^2.3.1",
     "react": "19.2.1",
