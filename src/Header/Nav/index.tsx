@@ -36,7 +36,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
         Menu
       </button>
       <nav
-        className={`absolute right-0 top-full z-30 mt-3 w-64 rounded-2xl border border-white/10 bg-black/95 p-6 text-xs text-white/80 shadow-[0_20px_60px_rgba(0,0,0,0.45)] transition md:static md:mt-0 md:flex md:w-auto md:items-center md:gap-8 md:bg-transparent md:p-0 md:shadow-none ${
+        className={`absolute right-0 top-full z-30 mt-3 w-64 rounded-2xl border border-white/10 bg-black/95 p-6 text-xs text-white/80 shadow-[0_20px_60px_rgba(0,0,0,0.45)] transition md:static md:mt-0 md:flex md:w-auto md:items-center md:gap-8 md:border-0 md:bg-transparent md:p-0 md:shadow-none ${
           open
             ? 'translate-y-0 opacity-100'
             : 'pointer-events-none -translate-y-2 opacity-0 md:pointer-events-auto md:translate-y-0 md:opacity-100'

@@ -33,11 +33,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
   return (
     <header className="container relative z-20" {...(theme ? { 'data-theme': theme } : {})}>
       <div className="flex items-center justify-between py-6 md:py-8">
-        <Link href="/">
+        <Link className="flex min-w-[200px] items-center justify-start" href="/">
           {data?.logo && typeof data.logo === 'object' ? (
             <Media
-              className="h-9 w-[300px]"
-              imgClassName="h-9 w-[300px] object-contain"
+              className="h-9 min-w-[200px] w-auto"
+              imgClassName="h-9 w-auto object-contain"
               resource={data.logo}
             />
           ) : (
