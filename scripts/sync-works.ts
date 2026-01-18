@@ -59,6 +59,13 @@ const getOrCreateMediaByFilename = async (
   if (existing.docs?.[0]) return existing.docs[0]
 
   const filePath = path.join(mediaDir, filename)
+  try {
+    await fs.access(filePath)
+  } catch {
+    payload.logger.warn(`Media file not found at ${filePath}.`)
+    return null
+  }
+
   const fileBuffer = await fs.readFile(filePath)
   const stats = await fs.stat(filePath)
   const ext = path.extname(filename).toLowerCase()
@@ -75,6 +82,17 @@ const getOrCreateMediaByFilename = async (
       size: stats.size,
     },
   })
+}
+
+const getAnyMediaFallback = async (payload: Awaited<ReturnType<typeof getPayload>>) => {
+  const existing = await payload.find({
+    collection: 'media',
+    depth: 0,
+    limit: 1,
+    pagination: false,
+  })
+
+  return existing.docs?.[0] || null
 }
 
 const buildStoryBody = (project: ProjectSeed) => {
@@ -94,7 +112,14 @@ const run = async () => {
     return
   }
 
-  const heroImage = await getOrCreateMediaByFilename(payload, defaultHeroImage)
+  const heroImage =
+    (await getOrCreateMediaByFilename(payload, defaultHeroImage)) ||
+    (await getAnyMediaFallback(payload))
+
+  if (!heroImage) {
+    payload.logger.warn('No media available. Skipping works sync.')
+    return
+  }
 
   let created = 0
   let updated = 0
