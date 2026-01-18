@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build || true",
-    "postbuild": "next-sitemap --config next-sitemap.config.cjs",
+    "postbuild": "test -f .next/routes-manifest.json && next-sitemap --config next-sitemap.config.cjs || echo \"Skipping next-sitemap (no .next build output).\"",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
     "dev:prod": "cross-env NODE_OPTIONS=--no-deprecation rm -rf .next && pnpm build && pnpm start",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
