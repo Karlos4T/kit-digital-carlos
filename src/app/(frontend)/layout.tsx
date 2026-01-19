@@ -51,7 +51,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           />
 
           <Header />
-          {children}
+          <main id="main-content">{children}</main>
           <Footer />
           <CookieBanner />
         </Providers>

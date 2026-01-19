@@ -56,7 +56,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
           {cta && (
             <CMSLink
               {...cta}
-              className="mt-3 rounded-full border border-white/25 px-6 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-white transition hover:border-primary/60 hover:text-primary md:mt-0"
+              className="mt-3 rounded-full border border-white/25 px-6 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.3em] text-black transition hover:border-primary/60 hover:text-primary md:mt-0"
             />
           )}
           <button

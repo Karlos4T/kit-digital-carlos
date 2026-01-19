@@ -34,7 +34,7 @@ export async function Footer() {
         </div>
 
         <div className="mt-12 grid gap-8 border-t border-white/10 pt-10 md:grid-cols-[1.2fr_1fr_1fr] md:items-start">
-          <Link className="flex items-center" href="/">
+          <Link aria-label="Inicio" className="flex items-center" href="/">
             {footerData?.logo && typeof footerData.logo === 'object' ? (
               <Media
                 className="h-9 w-[300px]"
@@ -56,6 +56,7 @@ export async function Footer() {
               {navItems.map(({ link }, i) => {
                 return (
                   <CMSLink
+                    ariaLabel={link?.label || link?.url || 'Enlace social'}
                     className="transition-colors hover:text-white"
                     key={i}
                     {...link}
@@ -68,6 +69,7 @@ export async function Footer() {
               <div className="flex gap-3 text-xs uppercase tracking-[0.3em] text-white/50">
                 {socialLinks.map(({ link }, i) => (
                   <CMSLink
+                    ariaLabel={link?.label || link?.url || 'Enlace social'}
                     className="transition-colors hover:text-white"
                     key={i}
                     {...link}
@@ -88,7 +90,7 @@ export async function Footer() {
         {(footerData?.bottomText || footerData?.bottomImage) && (
           <div className="mt-8 flex flex-col items-center gap-4 border-t border-white/10 pt-6 text-center">
             {footerData?.bottomText && (
-              <p className="text-xs uppercase tracking-[0.3em] text-white/60">
+              <p className="text-xs uppercase tracking-[0.3em] text-white/90">
                 {footerData.bottomText}
               </p>
             )}

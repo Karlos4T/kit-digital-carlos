@@ -36,7 +36,7 @@ export const WorksGalleryBlock: React.FC<WorksGalleryBlockProps> = ({
     <section className="relative overflow-hidden">
       <div className="container py-24">
         <div className="flex flex-col gap-2">
-          <h1 className="text-4xl font-semibold tracking-tight text-white md:text-6xl">{title}</h1>
+          <h2 className="text-4xl font-semibold tracking-tight text-white md:text-6xl">{title}</h2>
           {subtitle && <p className="text-sm text-white/50">{subtitle}</p>}
         </div>
 

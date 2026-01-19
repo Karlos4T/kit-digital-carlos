@@ -7,6 +7,7 @@ import type { Page, Post } from '@/payload-types'
 
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant']
+  ariaLabel?: string
   children?: React.ReactNode
   className?: string
   label?: string | null
@@ -24,6 +25,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   const {
     type,
     appearance = 'inline',
+    ariaLabel,
     children,
     className,
     label,
@@ -48,7 +50,12 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   /* Ensure we don't break any styles set by richText */
   if (appearance === 'inline') {
     return (
-      <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
+      <Link
+        aria-label={ariaLabel}
+        className={cn(className)}
+        href={href || url || ''}
+        {...newTabProps}
+      >
         {label && label}
         {children && children}
       </Link>
@@ -57,7 +64,12 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   return (
     <Button asChild className={className} size={size} variant={appearance}>
-      <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
+      <Link
+        aria-label={ariaLabel}
+        className={cn(className)}
+        href={href || url || ''}
+        {...newTabProps}
+      >
         {label && label}
         {children && children}
       </Link>
